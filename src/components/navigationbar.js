@@ -14,8 +14,7 @@ const NavigationBar = () => {
     return <nav className={`navbar navbar-default navbar-inverse ${styleClasses.navbar}`}>
         <div className="container-fluid">
             <div className="navbar-header">
-                {/* <a className="navbar-brand" href="#">Form Builder by@</a> */}
-                <h3>Form Builder <small>by @nasiphiVinqishe</small></h3>
+                <h3>My Form Builder <small>by @nasiphiVinqishe</small></h3>
             </div>
         </div>
     </nav>
