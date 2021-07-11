@@ -44,7 +44,10 @@ const Form = () => {
         currentInputCustomizing.style = [...style]
         tempInputList.push(currentInputCustomizing)
         updateMyInputsList(tempInputList)
-        updateCurrentInputCustomizing({ style: [] })
+        // updateCurrentInputCustomizing({ style: [] })
+        let defaultCustomizingInput = { style: [{ name: "", value: "" }] }
+        updateCurrentInputCustomizing(defaultCustomizingInput)
+        setStyle([])
     }
 
     const updatePropertiesOfCurrentInputCustoming = (e) => {
@@ -185,7 +188,7 @@ const Form = () => {
                                     />
                                 </div>
                             )
-                        } else if (input.inputType == "textarea") {
+                        } else if (input.key == "textarea") {
                             return <div key={index} className="form-group">
                                 <label><b>{input.label}</b></label>
 
