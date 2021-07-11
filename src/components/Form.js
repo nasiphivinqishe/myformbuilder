@@ -14,24 +14,34 @@ const Form = () => {
     const [myInputList, updateMyInputsList] = useState([])
     const [currentInputCustomizing, updateCurrentInputCustomizing] = useState({ style: [{ name: "", value: "" }] })
     const [style, setStyle] = useState([])
+    const [selectOptions, setSelectOptions] = useState([])
 
-    const [myInputFieldToChooseFrom, updateInputFieldToChooseFrom] = useState([
-        { key: "default", inputType: "text", value: "<input type='text' value=''/>", label: "Default Label", description: "Select input.", style: [{ name: "", value: "" }] },
-
-        { key: "input", inputType: "text", value: "<input type='text' placeholder='Enter text here...' value=''/>", label: "Default Label", description: "Text Input", style: [{ name: "", value: "" }] },
-        { key: "input", inputType: "button", value: "<input type='button' value='Button'/>", label: "Default Label", description: "Button", style: [{ name: "", value: "" }] },
-        { key: "input", inputType: "file", value: "<input type='file'value=''/>", label: "Default Label", description: "File Input", style: [{ name: "", value: "" }] },
-        { key: "input", inputType: "password", value: "<input type='password' placeholder='Enter password here...' value=''/>", label: "Default Label", description: "Password Input", style: [{ name: "", value: "" }] },
-        { key: "input", inputType: "number", value: "<input type='number' placeholder='Enter number here...' value=''/>", label: "Default Label", description: "Number Input", style: [{ name: "", value: "" }] },
-
-        ///////////////////////////////////////
-
-
-        ///////////////////////////////////////
-
-
-        { key: "textarea", inputType: "textarea", value: "<textarea type='text' placeholder='Enter text here...' value=''/></textarea >", label: "Default Label", description: "Text Area", style: [{ name: "", value: "" }] }
-    ])
+    const myInputFieldToChooseFrom = [
+        { key: "default", inputType: "text", value: "<input type='text' value=''/>", label: "", description: "Select input.", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "text", value: "<input type='text' placeholder='Enter text here...' value=''/>", label: "", description: "Text Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "button", value: "<input type='button' value='Button'/>", label: "", description: "Button", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "file", value: "<input type='file'value=''/>", label: "", description: "File Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "password", value: "<input type='password' placeholder='Enter password here...' value=''/>", label: "", description: "Password Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "number", value: "<input type='number' placeholder='Enter number here...' value=''/>", label: "", description: "Number Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "checkbox", value: "<input type='checkbox'value=''/>", label: "", description: "Checkbox Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "color", value: "<input type='color'value=''/>", label: "", description: "Color Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "date", value: "<input type='date'value=''/>", label: "", description: "Date Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "datetime-local", value: "<input type='datetime-local'value=''/>", label: "", description: "Datetime-local Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "email", value: "<input type='email'value=''/>", label: "", description: "Email Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "hidden", value: "<input type='hidden'value=''/>", label: "", description: "Hidden Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "month", value: "<input type='month'value=''/>", label: "", description: "Month Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "image", value: "<input type='image'value=''/>", label: "", description: "Image Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "radio", value: "<input type='radio'value=''/>", label: "", description: "Radio Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "reset", value: "<input type='reset'value=''/>", label: "", description: "Reset Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "search", value: "<input type='search'value=''/>", label: "", description: "Search Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "submit", value: "<input type='submit'value=''/>", label: "", description: "Submit Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "tel", value: "<input type='tel'value=''/>", label: "", description: "Tel Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "time", value: "<input type='time'value=''/>", label: "", description: "Time Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "url", value: "<input type='url'value=''/>", label: "", description: "Url Input", style: [{ name: "", value: "" }] },
+        { key: "input", inputType: "week", value: "<input type='week'value=''/>", label: "", description: "Week Input", style: [{ name: "", value: "" }] },
+        { key: "textarea", inputType: "textarea", value: "<textarea type='text' placeholder='Enter text here...' value=''/></textarea>", label: "", description: "Text Area", style: [{ name: "", value: "" }] },
+        { key: "select", inputType: "select", value: "<select></select>", label: "", description: "Select", style: [{ name: "", value: "" }] }
+    ]
 
     const handleOnChangeChoosingInputToAdd = (e) => {
         var key = e.target.value
@@ -42,12 +52,16 @@ const Form = () => {
     const handledAddingInputToForm = () => {
         var tempInputList = [...myInputList]
         currentInputCustomizing.style = [...style]
+
+        if (currentInputCustomizing.key == 'select')
+            currentInputCustomizing.option = [...selectOptions]
+
         tempInputList.push(currentInputCustomizing)
         updateMyInputsList(tempInputList)
-        // updateCurrentInputCustomizing({ style: [] })
         let defaultCustomizingInput = { style: [{ name: "", value: "" }] }
         updateCurrentInputCustomizing(defaultCustomizingInput)
         setStyle([])
+        setSelectOptions([])
     }
 
     const updatePropertiesOfCurrentInputCustoming = (e) => {
@@ -77,16 +91,44 @@ const Form = () => {
         updateCurrentInputCustomizing(tempStateCurrentInputCustomizing)
     }
 
+    const updateSelectOptionsOfCustomizingInput = (key, index, value) => {
+        //temp style holder 
+        var tempStateCurrentInputCustomizing = currentInputCustomizing
+        var currentSelectOptions = [...selectOptions]
+
+        //updating temp variable
+        if (key === 'name') {
+            currentSelectOptions[index].description = value
+        } else if (key === 'value') {
+            currentSelectOptions[index].value = value
+        }
+
+        tempStateCurrentInputCustomizing.selectOptions = selectOptions
+        updateCurrentInputCustomizing(tempStateCurrentInputCustomizing)
+    }
+
     const addMoreStylePropertyInput = () => {
         var tempState = [...style]
         tempState.push({ name: "", value: "" })
         setStyle(tempState)
     }
 
+    const addMoreSelectOptions = () => {
+        var tempState = [...selectOptions]
+        tempState.push({ description: "", value: "" })
+        setSelectOptions(tempState)
+    }
+
     const removesStyleProperty = (index) => {
         var tempStyle = [...style]
         tempStyle.splice(index, 1)
         setStyle(tempStyle)
+    }
+
+    const removesSelectOptionProperty = (index) => {
+        var tempSelectOptions = [...selectOptions]
+        tempSelectOptions.splice(index, 1)
+        setSelectOptions(tempSelectOptions)
     }
 
     const downloadBuiltForm = () => {
@@ -128,7 +170,7 @@ const Form = () => {
                 <div className="w3-row w3-card-4 containerInputCustomizing" style={{ padding: "3%" }}>
                     <h3><b>Cuctomize Input Properties</b></h3>
                     <p>Type: <b>{currentInputCustomizing.description}</b> </p>
-                    <h4>Style: </h4>
+                    <h4><b>Style: </b></h4>
                     {style.map((styleProperties, index) => {
                         return (
                             <div className="form-inline" key={index}>
@@ -146,9 +188,33 @@ const Form = () => {
 
                     <div className="row" title="Add more style prop.">
                         <div className="col-sm-12">
-                            <i className="fa fa-plus" aria-hidden="true" onClick={() => addMoreStylePropertyInput()}></i>
+                            <i className="fa fa-plus" aria-hidden="true" onClick={() => addMoreStylePropertyInput()}>Add style</i>
                         </div>
                     </div>
+
+                    <div style={{ display: currentInputCustomizing.key == 'select' ? "inline" : "none" }}>
+                        <h4><b>Options:</b></h4>
+                        {selectOptions.map((option, index) => {
+                            return (
+                                <div className="form-inline" key={index}>
+                                    <div className={`form-group ${styleClasses.formGroup}`}>
+                                        <label>Description </label>
+                                        <input type='text' className='form-control' onChange={(e) => updateSelectOptionsOfCustomizingInput('name', index, e.target.value)} />
+
+                                        <label>Value </label>
+                                        <input type='text' className='form-control' onChange={(e) => updateSelectOptionsOfCustomizingInput('value', index, e.target.value)} />
+                                    </div>
+                                    <i className="fa fa-minus" title="Remove this option." style={{ fontWeight: "bolder" }} onClick={() => removesSelectOptionProperty(index)}></i>
+                                </div>)
+                        })
+                        }
+                        <div className="row" title="Add more select prop.">
+                            <div className="col-sm-12">
+                                <i className="fa fa-plus" aria-hidden="true" onClick={() => addMoreSelectOptions()}> Add option</i>
+                            </div>
+                        </div>
+                    </div>
+
                     <div className="form-group">
                         <label>Label:</label>
                         <input
@@ -164,7 +230,7 @@ const Form = () => {
                         </button>
                     </div>
                 </div>
-            </div>
+            </div >
 
 
             <div style={{ display: myInputList.length == 0 ? "none" : "inline" }}>
@@ -197,6 +263,21 @@ const Form = () => {
                                     return agg;
                                 }, {})}
                                 ></textarea>
+                            </div>
+                        } else if (input.key == "select") {
+                            return <div key={index} className="form-group">
+                                <label><b>{input.label}</b></label>
+
+                                <select style={input.style?.reduce((agg, val) => {
+                                    agg[val.name] = val.value;
+                                    return agg;
+                                }, {})}
+                                >
+                                    {input.selectOptions.map((option, index) =>
+                                    (
+                                        <option key={index} value={option.value}>{option.description}</option>
+                                    ))}
+                                </select>
                             </div>
                         }
                     })}
